@@ -8,7 +8,6 @@ import { ProcessSection } from '../sections/ProcessSection';
 import { GlobalNetworkSection } from '../sections/GlobalNetworkSection';
 import { IncentiveToursSection } from '../sections/IncentiveToursSection';
 import { ExhibitionTravelSection } from '../sections/ExhibitionTravelSection';
-import { ClientsSection } from '../sections/ClientsSection';
 import { BlogSection } from '../sections/BlogSection';
 import { FAQSection } from '../sections/FAQSection';
 import { ContactSection } from '../sections/ContactSection';
@@ -38,7 +37,6 @@ export const HomePage: React.FC<HomePageProps> = ({
         <GlobalNetworkSection onOpenWhatsApp={onOpenWhatsApp} />
         <IncentiveToursSection onOpenWhatsApp={onOpenWhatsApp} />
         <ExhibitionTravelSection onOpenWhatsApp={onOpenWhatsApp} />
-        <ClientsSection onOpenWhatsApp={onOpenWhatsApp} />
         <BlogSection onOpenWhatsApp={onOpenWhatsApp} />
         <FAQSection onOpenWhatsApp={onOpenWhatsApp} />
         <ContactSection onOpenWhatsApp={onOpenWhatsApp} />

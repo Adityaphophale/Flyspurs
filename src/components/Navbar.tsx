@@ -32,7 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
     { name: 'Business Visa', path: '/#services' },
     { name: 'Incentive Tours', path: '/#incentive-tours' },
     { name: 'Exhibitions', path: '/#exhibitions' },
-    { name: 'Clients', path: '/#clients' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/#contact' },
   ];
