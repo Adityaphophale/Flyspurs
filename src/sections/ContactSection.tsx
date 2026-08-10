@@ -1,0 +1,293 @@
+import React, { useState } from 'react';
+import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle } from 'lucide-react';
+import confetti from 'canvas-confetti';
+
+interface ContactSectionProps {
+  onOpenWhatsApp: (service?: string) => void;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenWhatsApp }) => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    companyName: '',
+    email: '',
+    phone: '',
+    destination: '',
+    travelRequirement: 'End-to-End Corporate Travel Management',
+    message: '',
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#0A2D68', '#D5AF58', '#071B3D'],
+      });
+    } catch {
+      //
+    }
+
+    const messageText = `Hello Flyspurs,
+
+I am interested in your Corporate Travel Services.
+
+Name: ${formData.fullName}
+Company: ${formData.companyName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Destination: ${formData.destination || 'Not Specified'}
+Requirement: ${formData.travelRequirement}
+Message: ${formData.message || 'I would like to schedule a B2B corporate travel consultation.'}`;
+
+    const encodedMessage = encodeURIComponent(messageText);
+    const whatsappUrl = `https://wa.me/919274565625?text=${encodedMessage}`;
+
+    setSubmitted(true);
+
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setSubmitted(false);
+    }, 1200);
+  };
+
+  return (
+    <section id="contact" className="py-20 bg-white text-[#111827] relative border-b border-[#E5E7EB]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <span className="inline-block px-3.5 py-1 bg-[#0A2D68]/10 text-[#0A2D68] rounded-full text-xs font-bold uppercase tracking-wider border border-[#0A2D68]/20">
+            Initiate Partnership
+          </span>
+          <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#071B3D]">
+            Connect With Flyspurs Travel Desk
+          </h2>
+          <p className="text-[#4B5563] text-sm sm:text-base leading-relaxed">
+            Schedule a B2B travel audit, request a MICE proposal, or speak directly with our senior corporate advisory leads.
+          </p>
+        </div>
+
+        {/* Large Corporate Office Image Banner */}
+        <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E5E7EB] h-64 sm:h-80">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
+            alt="Flyspurs Corporate Headquarters"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#071B3D]/90 via-[#071B3D]/40 to-transparent p-6 sm:p-10 flex flex-col justify-end text-white">
+            <span className="text-[#D5AF58] text-xs font-bold uppercase tracking-wider">Corporate Headquarters</span>
+            <h3 className="font-heading text-2xl sm:text-3xl font-bold">Vadodara, Gujarat • India</h3>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Office Info & Map Embed */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-[#E5E7EB] shadow-sm space-y-4">
+              <h3 className="font-heading text-xl font-bold text-[#071B3D]">Head Office & Direct Contacts</h3>
+
+              <div className="space-y-3 text-xs sm:text-sm">
+                
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#071B3D]">Head Office:</p>
+                    <p className="text-[#4B5563]">413, 4th Floor, Siddhivinayak Arcus, Bhayli Road, Vadodara – 391410, Gujarat, India.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#071B3D]">Corporate Email:</p>
+                    <a href="mailto:travel@flyspurs.com" className="text-[#0A2D68] font-semibold hover:underline">travel@flyspurs.com</a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#071B3D]">Phone / WhatsApp Desk:</p>
+                    <a href="tel:+919274565625" className="text-[#0A2D68] font-bold hover:underline">+91 - 92745 65625</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="p-3 bg-white rounded-xl border border-[#E5E7EB] text-xs flex items-center justify-between">
+                <span className="text-[#4B5563]">GSTIN: <strong className="text-[#0A2D68]">24BBNPS9571D1Z7</strong></span>
+                <span className="flex items-center gap-1 text-[#0A2D68] font-bold"><ShieldCheck className="w-3.5 h-3.5 text-[#D5AF58]" /> Verified Corporate</span>
+              </div>
+            </div>
+
+            {/* Google Maps Embed */}
+            <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm h-64 relative group">
+              <iframe
+                title="Flyspurs Head Office - Siddhivinayak Arcus, Bhayli Road, Vadodara"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.68334468699!2d73.1259508!3d22.281898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc94cd3a37367%3A0xa1ea009405d4fb17!2sSiddhivinayak%20Arcus!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <a
+                href="https://maps.google.com/?q=Siddhivinayak+Arcus,+Bhayli+Road,+Vadodara,+Gujarat+391410"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-3 right-3 px-3 py-1.5 bg-[#0A2D68] text-white text-xs font-bold rounded-lg shadow-md hover:bg-[#071B3D] transition-colors flex items-center gap-1.5 z-10"
+              >
+                <span>Open in Google Maps</span>
+              </a>
+            </div>
+
+          </div>
+
+          {/* Right Column: Direct WhatsApp Inquiry Form */}
+          <div className="lg:col-span-7 bg-[#F8FAFC] p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-lg space-y-6">
+            
+            <div className="space-y-1">
+              <h3 className="font-heading text-xl font-bold text-[#071B3D]">Direct B2B Inquiry Form</h3>
+              <p className="text-xs text-[#4B5563]">Instantly routes formatted query directly to our Senior Travel Manager on WhatsApp.</p>
+            </div>
+
+            {submitted ? (
+              <div className="py-12 text-center space-y-3">
+                <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                  <CheckCircle className="w-8 h-8" />
+                </div>
+                <h4 className="font-heading text-xl font-bold text-[#071B3D]">Connecting to WhatsApp...</h4>
+                <p className="text-xs text-[#4B5563] max-w-sm mx-auto">
+                  Directing you to Flyspurs Senior Corporate Advisory Desk.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Rajesh Sharma"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Company Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Mechtech Inframine Ltd."
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Work Email *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="e.g. r.sharma@company.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Phone Number *</label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. +91 98765 43210"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Primary Destination</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Germany, Dubai, Canton Fair"
+                      value={formData.destination}
+                      onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">Service Requirement *</label>
+                    <select
+                      value={formData.travelRequirement}
+                      onChange={(e) => setFormData({ ...formData, travelRequirement: e.target.value })}
+                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                    >
+                      <option value="End-to-End Corporate Travel Management">End-to-End Corporate Travel Desk</option>
+                      <option value="Corporate Flight Coordination">Corporate Flight Coordination</option>
+                      <option value="Corporate Hotel Reservations">Corporate Hotel Reservations</option>
+                      <option value="Business Visa Assistance">Business Visa Assistance</option>
+                      <option value="Corporate Incentive Tours">Corporate Incentive Tours (MICE)</option>
+                      <option value="Trade Fair & Exhibition Travel">Trade Fair & Exhibition Logistics</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#111827] mb-1">Travel Requirement Details</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Provide details regarding travel frequency, delegation size, upcoming exhibition dates..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-6 font-bold text-xs text-[#071B3D] bg-[#D5AF58] hover:bg-[#c49f48] rounded-xl shadow-md transition-all"
+                >
+                  <MessageSquare className="w-4 h-4 fill-[#071B3D]" />
+                  <span>Submit & Open WhatsApp Inquiry</span>
+                </button>
+
+              </form>
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};
+

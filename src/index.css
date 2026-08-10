@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --navy-primary: #0A2D68;
+    --navy-dark: #071B3D;
+    --gold-brand: #D5AF58;
+    --gold-light: #F4E8C1;
+    --bg-light: #F7F8FA;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #F7F8FA;
+    color: #071B3D;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Custom Utilities for Premium Look */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(10, 45, 104, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(7, 27, 61, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(213, 175, 88, 0.2);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D5AF58 0%, #F5E1A4 50%, #B8923C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navy-gradient-bg {
+  background: linear-gradient(135deg, #071B3D 0%, #0A2D68 60%, #082250 100%);
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px rgba(213, 175, 88, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F8FA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0A2D68;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D5AF58;
+}
+
+/* Hide scrollbar for clean horizontal logo sliders */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
