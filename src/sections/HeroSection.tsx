@@ -5,13 +5,6 @@ interface HeroSectionProps {
   onOpenWhatsApp: (service?: string) => void;
 }
 
-import React from 'react';
-import { MessageSquare, ArrowRight, ShieldCheck } from 'lucide-react';
-
-interface HeroSectionProps {
-  onOpenWhatsApp: (service?: string) => void;
-}
-
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenWhatsApp,
 }) => {
