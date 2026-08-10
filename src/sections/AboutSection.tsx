@@ -45,26 +45,26 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp }) =>
               Flyspurs delivers end-to-end B2B travel management for multinational exporters, manufacturing leaders, and IT corporations across 50+ countries. We handle complex itineraries so your executive teams stay focused on business growth.
             </p>
 
-            {/* 3 Quick Value Highlights */}
-            <div className="grid grid-cols-3 gap-4 pt-2">
-              <div className="p-3.5 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs text-center">
-                <p className="font-heading text-xl font-extrabold text-[#0A2D68]">15+ Yrs</p>
-                <p className="text-[11px] text-[#4B5563] font-semibold">Excellence</p>
+            {/* Mission, Vision & Global Presence */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs space-y-1">
+                <p className="font-heading text-xs font-extrabold text-[#0A2D68] uppercase tracking-wider">Mission</p>
+                <p className="text-xs text-[#4B5563] font-medium leading-normal">Zero-friction travel logistics for global enterprise teams.</p>
               </div>
-              <div className="p-3.5 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs text-center">
-                <p className="font-heading text-xl font-extrabold text-[#D5AF58]">250+</p>
-                <p className="text-[11px] text-[#4B5563] font-semibold">Corporate Clients</p>
+              <div className="p-4 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs space-y-1">
+                <p className="font-heading text-xs font-extrabold text-[#D5AF58] uppercase tracking-wider">Vision</p>
+                <p className="text-xs text-[#4B5563] font-medium leading-normal">India’s most dependable B2B corporate mobility desk.</p>
               </div>
-              <div className="p-3.5 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs text-center">
-                <p className="font-heading text-xl font-extrabold text-[#0A2D68]">24/7</p>
-                <p className="text-[11px] text-[#4B5563] font-semibold">Global Support Desk</p>
+              <div className="p-4 bg-white rounded-2xl border border-[#E5E7EB] shadow-2xs space-y-1">
+                <p className="font-heading text-xs font-extrabold text-[#0A2D68] uppercase tracking-wider">Global Presence</p>
+                <p className="text-xs text-[#4B5563] font-medium leading-normal">Support Desks across India, Singapore & USA.</p>
               </div>
             </div>
 
             <div className="pt-2">
               <button
                 onClick={() => onOpenWhatsApp('About Section Inquiry')}
-                className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+                className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg"
               >
                 <span>Connect With Corporate Advisory</span>
                 <ArrowRight className="w-4 h-4 text-[#D5AF58]" />
