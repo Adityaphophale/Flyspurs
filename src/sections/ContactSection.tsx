@@ -86,28 +86,52 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Contact Layout: LEFT (Contact Info & Get Directions), RIGHT (Interactive Google Map Embed) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
-          {/* Left Column: Office Info & Map Embed */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* LEFT: Contact Information & Actions */}
+          <div className="lg:col-span-5 bg-[#F8FAFC] p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] shadow-sm flex flex-col justify-between space-y-6">
             
-            <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-[#E5E7EB] shadow-sm space-y-4">
-              <h3 className="font-heading text-xl font-bold text-[#071B3D]">Head Office & Direct Contacts</h3>
+            <div className="space-y-6">
+              {/* Flyspurs Logo */}
+              <div className="flex items-center gap-2">
+                <Building2 className="w-8 h-8 text-[#0A2D68]" />
+                <span className="font-heading text-2xl font-black tracking-tight text-[#071B3D]">Flyspurs</span>
+              </div>
 
-              <div className="space-y-3 text-xs sm:text-sm">
+              {/* Short Contact Description */}
+              <p className="text-[#4B5563] text-xs sm:text-sm leading-relaxed">
+                India's premier B2B Corporate Travel Management desk. Reach out directly for corporate travel audits, visa assistance, and global delegation logistics.
+              </p>
+
+              {/* Contact Details */}
+              <div className="space-y-4 text-xs sm:text-sm text-[#111827]">
                 
+                {/* Office */}
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0 mt-0.5">
+                  <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 mt-0.5 shadow-2xs">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="font-bold text-[#071B3D]">Head Office:</p>
-                    <p className="text-[#4B5563]">413, 4th Floor, Siddhivinayak Arcus, Bhayli Road, Vadodara – 391410, Gujarat, India.</p>
+                    <p className="text-[#4B5563] mt-0.5">413, 4th Floor, Siddhivinayak Arcus, Bhayli Road, Vadodara – 391410, Gujarat, India.</p>
                   </div>
                 </div>
 
+                {/* Phone */}
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0">
+                  <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 shadow-2xs">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#071B3D]">Phone / WhatsApp Desk:</p>
+                    <a href="tel:+919274565625" className="text-[#0A2D68] font-extrabold hover:underline">+91 - 92745 65625</a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 shadow-2xs">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
@@ -116,85 +140,107 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
                   </div>
                 </div>
 
+                {/* WhatsApp Direct Action */}
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#0A2D68] text-[#D5AF58] rounded-lg shrink-0">
-                    <Phone className="w-4 h-4" />
+                  <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 shadow-2xs">
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-bold text-[#071B3D]">Phone / WhatsApp Desk:</p>
-                    <a href="tel:+919274565625" className="text-[#0A2D68] font-bold hover:underline">+91 - 92745 65625</a>
-                  </div>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between border-t border-[#E5E7EB]">
-                  <span className="text-xs font-bold text-[#071B3D]">Connect on Social:</span>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href="https://www.linkedin.com/company/flyspurs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1 bg-white border border-[#E5E7EB] hover:border-[#0A2D68] text-[#0A2D68] font-bold text-xs rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+                    <p className="font-bold text-[#071B3D]">WhatsApp Desk:</p>
+                    <button
+                      onClick={() => onOpenWhatsApp('Contact Desk Direct Inquiry')}
+                      className="text-[#0A2D68] font-bold hover:underline"
                     >
-                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                      </svg>
-                      <span>LinkedIn</span>
-                    </a>
-                    <a
-                      href="https://www.instagram.com/official_flyspurs/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1 bg-white border border-[#E5E7EB] hover:border-[#0A2D68] text-[#0A2D68] font-bold text-xs rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
-                    >
-                      <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                      </svg>
-                      <span>Instagram</span>
-                    </a>
+                      Connect on WhatsApp
+                    </button>
                   </div>
                 </div>
 
               </div>
 
-              <div className="p-3 bg-white rounded-xl border border-[#E5E7EB] text-xs flex items-center justify-between">
-                <span className="text-[#4B5563]">GSTIN: <strong className="text-[#0A2D68]">24BBNPS9571D1Z7</strong></span>
-                <span className="flex items-center gap-1 text-[#0A2D68] font-bold"><ShieldCheck className="w-3.5 h-3.5 text-[#D5AF58]" /> Verified Corporate</span>
+              {/* Social Media Links: LinkedIn & Instagram */}
+              <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between">
+                <span className="text-xs font-bold text-[#071B3D]">Social Channels:</span>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://www.linkedin.com/company/flyspurs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="px-3 py-1.5 bg-white border border-[#E5E7EB] hover:border-[#0A2D68] text-[#0A2D68] font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5 shadow-2xs"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                    </svg>
+                    <span>LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/official_flyspurs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="px-3 py-1.5 bg-white border border-[#E5E7EB] hover:border-[#0A2D68] text-[#0A2D68] font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5 shadow-2xs"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                    <span>Instagram</span>
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Google Maps Embed */}
-            <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm h-64 relative group">
-              <iframe
-                title="Flyspurs Head Office - Siddhivinayak Arcus, Bhayli Road, Vadodara"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.68334468699!2d73.1259508!3d22.281898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc94cd3a37367%3A0xa1ea009405d4fb17!2sSiddhivinayak%20Arcus!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            {/* Primary Action Button: Get Directions */}
+            <div className="pt-2">
               <a
-                href="https://maps.google.com/?q=Siddhivinayak+Arcus,+Bhayli+Road,+Vadodara,+Gujarat+391410"
+                href="https://share.google/2dI8CPdwPFYd0amac"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-3 right-3 px-3 py-1.5 bg-[#0A2D68] text-white text-xs font-bold rounded-lg shadow-md hover:bg-[#071B3D] transition-colors flex items-center gap-1.5 z-10"
+                className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-2xl shadow-md hover:shadow-lg transition-all border border-[#0A2D68]"
               >
-                <span>Open in Google Maps</span>
+                <span>Get Directions</span>
+                <ArrowRight className="w-4 h-4 text-[#D5AF58]" />
               </a>
             </div>
 
           </div>
 
-          {/* Right Column: Direct WhatsApp Inquiry Form */}
-          <div className="lg:col-span-7 bg-[#F8FAFC] p-6 sm:p-8 rounded-2xl border border-[#E5E7EB] shadow-lg space-y-6">
+          {/* RIGHT: Interactive Google Maps Embed */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-lg relative min-h-[380px] lg:min-h-[480px]">
+            <iframe
+              title="Flyspurs Head Office - Siddhivinayak Arcus, Bhayli Road, Vadodara"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.68334468699!2d73.1259508!3d22.281898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc94cd3a37367%3A0xa1ea009405d4fb17!2sSiddhivinayak%20Arcus!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '380px' }}
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full object-cover"
+            ></iframe>
             
-            <div className="space-y-1">
-              <h3 className="font-heading text-xl font-bold text-[#071B3D]">Direct B2B Inquiry Form</h3>
-              <p className="text-xs text-[#4B5563]">Instantly routes formatted query directly to our Senior Travel Manager on WhatsApp.</p>
-            </div>
+            {/* Quick Overlay Floating Action on Map */}
+            <a
+              href="https://share.google/2dI8CPdwPFYd0amac"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-4 right-4 px-4 py-2 bg-[#0A2D68] text-white text-xs font-bold rounded-xl shadow-lg hover:bg-[#071B3D] transition-colors flex items-center gap-2 border border-white/20 z-10"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#D5AF58]" />
+              <span>Open Location on Google Maps</span>
+            </a>
+          </div>
+
+        </div>
+
+        {/* Direct B2B WhatsApp Inquiry Form Container Below */}
+        <div className="mt-12 bg-[#F8FAFC] p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] shadow-lg max-w-4xl mx-auto space-y-6">
+          <div className="space-y-1 text-center">
+            <h3 className="font-heading text-xl font-bold text-[#071B3D]">Start Your Corporate Travel Inquiry</h3>
+            <p className="text-xs text-[#4B5563]">Routes formatted query directly to our Senior Travel Manager on WhatsApp.</p>
+          </div>
 
             {submitted ? (
               <div className="py-12 text-center space-y-3">
