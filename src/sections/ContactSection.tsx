@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle } from 'lucide-react';
+import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle, ArrowRight } from 'lucide-react';
+import { Logo } from '../components/Logo';
 import confetti from 'canvas-confetti';
 
 interface ContactSectionProps {
@@ -94,9 +95,8 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
             
             <div className="space-y-6">
               {/* Flyspurs Logo */}
-              <div className="flex items-center gap-2">
-                <Building2 className="w-8 h-8 text-[#0A2D68]" />
-                <span className="font-heading text-2xl font-black tracking-tight text-[#071B3D]">Flyspurs</span>
+              <div>
+                <Logo className="h-10 sm:h-11" variant="dark" />
               </div>
 
               {/* Short Contact Description */}
