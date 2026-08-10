@@ -37,7 +37,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
               </span>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => onOpenWhatsApp('Footer Consultation Request')}
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-xl shadow-md transition-all duration-200"
@@ -45,6 +45,33 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
                 <span>Request B2B Corporate Consultation</span>
                 <ArrowRight className="w-4 h-4 text-[#D5AF58]" />
               </button>
+
+              <div className="flex items-center gap-2 pl-2">
+                <a
+                  href="https://www.linkedin.com/company/flyspurs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="p-2 text-[#0A2D68] bg-white border border-[#E5E7EB] hover:border-[#0A2D68] hover:text-[#071B3D] rounded-lg transition-colors shadow-2xs"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://www.instagram.com/official_flyspurs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="p-2 text-[#0A2D68] bg-white border border-[#E5E7EB] hover:border-[#0A2D68] hover:text-[#071B3D] rounded-lg transition-colors shadow-2xs"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
