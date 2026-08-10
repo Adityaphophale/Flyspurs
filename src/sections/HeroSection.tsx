@@ -9,7 +9,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenWhatsApp,
 }) => {
   return (
-    <section id="hero" className="relative pt-24 pb-20 sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36 bg-gray-900 text-white overflow-hidden">
+    <section id="hero" className="relative pt-24 pb-20 sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36 bg-[#071B3D] text-white overflow-hidden">
       {/* Full-width Background Aircraft Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -17,9 +17,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           alt="Corporate Airplane on Runway at Golden Sunset"
           className="w-full h-full object-cover object-center scale-105 transform transition-transform duration-1000"
         />
-        {/* Transparent dark vignette overlay for maximum contrast and 100% text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+        {/* Flyspurs Brand Navy Gradient Overlay for perfect brand color theme & 100% text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071B3D]/95 via-[#0A2D68]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071B3D]/90 via-transparent to-[#071B3D]/40"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
