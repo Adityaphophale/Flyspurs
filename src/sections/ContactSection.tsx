@@ -360,8 +360,6 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
 
           </div>
 
-        </div>
-
       </div>
     </section>
   );
