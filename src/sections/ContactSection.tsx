@@ -195,7 +195,7 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
             {/* Primary Action Button: Get Directions */}
             <div className="pt-2">
               <a
-                href="https://share.google/2dI8CPdwPFYd0amac"
+                href="https://maps.app.goo.gl/tihSGDht4k7h8F6s7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-2xl shadow-md hover:shadow-lg transition-all border border-[#0A2D68]"
@@ -223,7 +223,7 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
             
             {/* Quick Overlay Floating Action on Map */}
             <a
-              href="https://share.google/2dI8CPdwPFYd0amac"
+              href="https://maps.app.goo.gl/tihSGDht4k7h8F6s7"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute bottom-4 right-4 px-4 py-2 bg-[#0A2D68] text-white text-xs font-bold rounded-xl shadow-lg hover:bg-[#071B3D] transition-colors flex items-center gap-2 border border-white/20 z-10"
