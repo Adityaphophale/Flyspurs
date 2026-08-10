@@ -8,7 +8,7 @@ interface ServicesSectionProps {
 }
 
 const serviceImages: Record<string, string> = {
-  'corporate-flights': 'https://images.unsplash.com/photo-1540339832862-47459980783b?auto=format&fit=crop&q=80&w=800',
+  'corporate-flights': '/corporate_flight_coordination.jpg',
   'hotel-reservations': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800',
   'business-visa': 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800',
   'travel-documentation': 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800',
