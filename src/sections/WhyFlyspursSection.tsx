@@ -119,28 +119,28 @@ export const WhyFlyspursSection: React.FC<WhyFlyspursSectionProps> = ({
 
         </div>
 
-        {/* B2B Consultation Banner */}
-        <div className="bg-white rounded-2xl p-8 border border-[#D5AF58] shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
+        {/* Plan Your Next Corporate Journey Banner */}
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-[#E5E7EB] shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left max-w-2xl">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A2D68] uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-[#D5AF58]" />
-              <span>Complimentary Enterprise Travel Audit</span>
+              <span>Corporate Travel Coordination</span>
             </span>
-            <h3 className="font-heading text-2xl font-bold text-[#071B3D]">
-              Schedule A B2B Corporate Travel Assessment
+            <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071B3D]">
+              Plan Your Next Corporate Journey
             </h3>
-            <p className="text-xs sm:text-sm text-[#4B5563]">
-              Let our senior travel leads analyze your flight and hotel spend to identify cost reduction opportunities and ITC tax recovery.
+            <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed">
+              From business travel and international delegations to incentive tours and exhibitions, Flyspurs helps coordinate your journey from planning to arrival.
             </p>
           </div>
 
           <div className="shrink-0 w-full md:w-auto">
             <button
-              onClick={() => onOpenWhatsApp('Why Choose Flyspurs Corporate Audit')}
-              className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all"
+              onClick={() => onOpenWhatsApp('Plan Your Next Corporate Journey')}
+              className="w-full md:w-auto flex items-center justify-center gap-2.5 px-8 py-4 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-2xl shadow-md hover:shadow-lg transition-all"
             >
               <MessageSquare className="w-4 h-4 text-[#D5AF58]" />
-              <span>Request Corporate Travel Audit</span>
+              <span>Talk to Flyspurs</span>
             </button>
           </div>
         </div>
