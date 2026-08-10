@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle, ArrowRight } from 'lucide-react';
+import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle, ArrowRight, Globe } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import confetti from 'canvas-confetti';
 
@@ -206,13 +206,13 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
           </div>
 
           {/* RIGHT: Interactive Google Maps Embed Centered EXACTLY on Flyspurs (22.2947237, 73.1248216) */}
-          <div className="lg:col-span-7 rounded-[20px] overflow-hidden border border-[#E5E7EB] shadow-md relative h-[350px] sm:h-[400px] lg:h-[450px]">
+          <div className="lg:col-span-7 rounded-[20px] overflow-hidden border border-[#E5E7EB] shadow-md relative min-h-[350px] sm:min-h-[400px] lg:min-h-[450px]">
             <iframe
               title="Flyspurs Office Location Map"
-              src="https://maps.google.com/maps?q=22.2947237,73.1248216+(Flyspurs)&t=&z=16&ie=UTF8&iwloc=B&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.68334468699!2d73.1248216!3d22.2947237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc94cd3a37367%3A0xa1ea009405d4fb17!2sSiddhivinayak%20Arcus!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
+              style={{ border: 0, minHeight: '350px' }}
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
