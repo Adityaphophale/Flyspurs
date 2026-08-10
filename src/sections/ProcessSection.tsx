@@ -16,8 +16,8 @@ export const ProcessSection: React.FC = () => {
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E5E7EB]">
           
           <img
-            src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&q=80&w=2000"
-            alt="International Corporate Travel Terminal"
+            src="/plane_sunset.png"
+            alt="Flyspurs Corporate Airplane Soaring Above Sunset Clouds"
             className="w-full h-[480px] sm:h-[520px] object-cover"
           />
 
