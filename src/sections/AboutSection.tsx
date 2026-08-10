@@ -17,7 +17,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp }) =>
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#E5E7EB] aspect-4/3 group">
               <img
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1200"
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
                 alt="Flyspurs Executive Corporate Travel Desk"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
