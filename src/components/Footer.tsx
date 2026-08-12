@@ -130,7 +130,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
 
         {/* Bottom Copyright & Legal Links Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-[#4B5563] gap-4">
-          <p>© {currentYear} Flyspurs Corporate Travel Management. All rights reserved. "Beyond The Destination".</p>
+          <div className="space-y-1 text-center md:text-left">
+            <p>© {currentYear} Flyspurs. All rights reserved. | Beyond The Destination</p>
+            <p className="text-[11px] text-[#6B7280]">
+              Design & Developed by{' '}
+              <a
+                href="https://www.innovexxa.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0A2D68] font-bold hover:underline"
+              >
+                Innovexxa
+              </a>
+            </p>
+          </div>
 
           <div className="flex items-center gap-6">
             <a href="/#privacy" className="hover:text-[#0A2D68] transition-colors">Privacy Policy</a>

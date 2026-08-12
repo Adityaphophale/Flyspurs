@@ -18,27 +18,27 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
     {
       region: 'Europe & UK',
       hubs: 'Frankfurt, London, Zurich, Paris, Berlin, Milan',
-      specialty: 'Schengen Business Visas, Trade Fairs (ITB, MEDICA, Hannover Messe), Industrial Plant Visits'
+      travelSupport: 'Business travel planning, flight and hotel coordination, visa assistance, trade fair travel and international business travel support.'
     },
     {
       region: 'East Asia & China',
       hubs: 'Guangzhou, Shanghai, Tokyo, Seoul, Taipei',
-      specialty: 'Canton Fair Hotel Blocks, China M-Visa, Sourcing Fairs, Machinery Factory Inspections'
+      travelSupport: 'Corporate travel planning, hotel coordination, visa assistance, trade fair travel and business delegation support.'
     },
     {
       region: 'Southeast Asia',
       hubs: 'Singapore, Bangkok, Kuala Lumpur, Hanoi, Jakarta, Bali',
-      specialty: 'MICE Incentive Reward Programs, E-Visas, Corporate Retreats, Regional APAC HQ Visits'
+      travelSupport: 'Corporate travel planning, hotel coordination, business travel, incentive travel and international delegation support.'
     },
     {
       region: 'Middle East & Gulf',
       hubs: 'Dubai, Abu Dhabi, Riyadh, Jeddah, Muscat',
-      specialty: 'Exhibition Travel (ATM Dubai), Fast-Track Business Visas, Executive Chauffeurs, Desert Galas'
+      travelSupport: 'Business travel planning, exhibition travel, visa assistance, hotel coordination and corporate travel support.'
     },
     {
       region: 'Americas',
       hubs: 'New York, San Francisco, Chicago, Toronto, Mexico City',
-      specialty: 'US B1/B2 Interview Slot Scheduling, Tech Summits (CES Las Vegas), Multi-City Exporter Tours'
+      travelSupport: 'International business travel, flight and hotel coordination, visa assistance and multi-city corporate travel planning.'
     }
   ];
 
@@ -53,10 +53,10 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
             Global Mobility Footprint
           </span>
           <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#071B3D]">
-            International Business Travel & <span className="text-[#0A2D68]">Global Network</span>
+            International Business Travel & <span className="text-[#0A2D68]">Global Destinations</span>
           </h2>
           <p className="text-[#4B5563] text-sm sm:text-base leading-relaxed">
-            Connecting Indian manufacturing exporters, pharmaceutical leaders, and IT firms with commercial hubs across 50+ countries.
+            Supporting corporate and business travel across key commercial hubs worldwide.
           </p>
         </div>
 
@@ -72,6 +72,7 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
                     src={imageUrl}
                     alt={r.region}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                   <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#0A2D68]/90 text-white backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
                     <Globe2 className="w-3 h-3 text-[#D5AF58]" />
@@ -87,23 +88,23 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
                   </div>
 
                   <div className="pt-2 border-t border-[#E5E7EB]">
-                    <p className="text-[10px] text-[#4B5563] uppercase font-bold tracking-wider">Specialization</p>
-                    <p className="text-xs text-[#4B5563] leading-relaxed line-clamp-2">{r.specialty}</p>
+                    <p className="text-[10px] text-[#4B5563] uppercase font-bold tracking-wider">Travel Support</p>
+                    <p className="text-xs text-[#4B5563] leading-relaxed">{r.travelSupport}</p>
                   </div>
                 </div>
               </div>
             );
           })}
 
-          {/* Callout Card */}
+          {/* Card 6: International Delegations */}
           <div className="bg-white p-6 rounded-2xl border border-[#D5AF58] shadow-md flex flex-col justify-between space-y-4">
             <div className="space-y-2">
               <span className="inline-block px-2.5 py-1 bg-[#0A2D68] text-white text-[10px] font-extrabold rounded-md uppercase">
-                International C-Suite Delegations
+                INTERNATIONAL DELEGATIONS
               </span>
-              <h3 className="font-heading text-xl font-bold text-[#071B3D]">Protocol-Compliant Executive Travel</h3>
+              <h3 className="font-heading text-xl font-bold text-[#071B3D]">International Business Delegations</h3>
               <p className="text-xs text-[#4B5563] leading-relaxed">
-                VIP airport tarmac assistance, luxury armored chauffeur transport, private jet charters, and 5-star executive suite blocks.
+                Coordinated travel support for international business delegations, including flights, hotels, visas, transfers and travel logistics.
               </p>
             </div>
 
@@ -111,7 +112,7 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
               onClick={() => onOpenWhatsApp('International Delegation Support')}
               className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-2xs"
             >
-              <span>Connect Global Delegation Desk</span>
+              <span>PLAN YOUR DELEGATION</span>
               <ArrowRight className="w-4 h-4 text-[#D5AF58]" />
             </button>
           </div>
@@ -121,4 +122,3 @@ export const GlobalNetworkSection: React.FC<GlobalNetworkSectionProps> = ({ onOp
     </section>
   );
 };
-
