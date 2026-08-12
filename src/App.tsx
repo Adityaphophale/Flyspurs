@@ -5,7 +5,6 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogPostPage } from './pages/BlogPostPage';
-import { SEOResourcesPage } from './pages/SEOResourcesPage';
 import { WhatsAppModal } from './components/WhatsAppModal';
 import { FloatingWhatsAppBtn } from './components/FloatingWhatsAppBtn';
 import { BackToTop } from './components/BackToTop';
@@ -48,7 +47,6 @@ export default function App() {
             path="/blog/:slug"
             element={<BlogPostPage onOpenWhatsApp={handleOpenWhatsApp} />}
           />
-          <Route path="/seo-resources" element={<SEOResourcesPage />} />
         </Routes>
 
         {/* Global Footer */}

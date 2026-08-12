@@ -26,12 +26,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/#about' },
+    { name: 'About', path: '/#about' },
     { name: 'Services', path: '/#services' },
     { name: 'Corporate Travel', path: '/#services' },
     { name: 'Business Visa', path: '/#services' },
     { name: 'Incentive Tours', path: '/#incentive-tours' },
     { name: 'Exhibitions', path: '/#exhibitions' },
+    { name: 'Clients', path: '/#clients' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/#contact' },
   ];
@@ -47,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0">
-          <Logo className="h-9 sm:h-11" variant="dark" />
+          <Logo className="h-8 sm:h-10 md:h-11" variant="dark" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -94,15 +95,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
         {/* Mobile Hamburger Menu Toggle */}
         <div className="flex items-center gap-2 xl:hidden">
           <button
-            onClick={() => onOpenWhatsApp('Mobile Navigation Inquiry')}
-            className="p-2 text-[#0A2D68] bg-[#F8FAFC] rounded-lg border border-[#E5E7EB]"
-            aria-label="WhatsApp"
-          >
-            <MessageSquare className="w-5 h-5 text-[#D5AF58]" />
-          </button>
-          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#111827] bg-[#F8FAFC] rounded-lg hover:bg-[#EEF5FF] border border-[#E5E7EB] transition-colors"
+            className="p-2.5 text-[#111827] bg-[#F8FAFC] rounded-xl hover:bg-[#EEF5FF] border border-[#E5E7EB] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -112,38 +106,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-white border-t border-[#E5E7EB] px-4 pt-4 pb-6 mt-3 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200">
-          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-[#E5E7EB]">
+        <div className="xl:hidden bg-white border-t border-[#E5E7EB] px-4 pt-4 pb-6 mt-3 space-y-4 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100vh-80px)] overflow-y-auto">
+          <nav className="flex flex-col space-y-1 divide-y divide-[#F3F4F6]">
             {navLinks.map((link) => (
               <React.Fragment key={link.name}>
                 {link.path === '/blog' ? (
                   <Link
                     to="/blog"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 text-xs font-bold text-[#0A2D68] bg-[#EEF5FF] rounded-lg"
+                    className="py-3 px-2 text-sm font-bold text-[#0A2D68] hover:bg-[#EEF5FF] rounded-lg transition-colors flex items-center justify-between"
                   >
-                    Blog
+                    <span>Blog</span>
                   </Link>
                 ) : (
                   <a
                     href={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 text-xs font-semibold text-[#4B5563] hover:text-[#0A2D68] hover:bg-[#EEF5FF] rounded-lg"
+                    className="py-3 px-2 text-sm font-semibold text-[#374151] hover:text-[#0A2D68] hover:bg-[#EEF5FF] rounded-lg transition-colors flex items-center justify-between"
                   >
-                    {link.name}
+                    <span>{link.name}</span>
                   </a>
                 )}
               </React.Fragment>
             ))}
-          </div>
+          </nav>
 
           <div className="pt-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenWhatsApp('General Corporate Inquiry');
+                onOpenWhatsApp('Schedule Consultation');
               }}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 text-xs font-bold text-white bg-[#0A2D68] rounded-xl shadow-md"
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 text-sm font-bold text-white bg-[#0A2D68] hover:bg-[#071B3D] rounded-xl shadow-md min-h-[44px]"
             >
               <MessageSquare className="w-4 h-4 text-[#D5AF58]" />
               <span>Schedule Consultation</span>
@@ -154,4 +148,3 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWhatsApp }) => {
     </header>
   );
 };
-
