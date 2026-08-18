@@ -26,10 +26,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl space-y-5 sm:space-y-8">
           
-          {/* Responsive Heading */}
+          {/* Single Prominent H1 Heading */}
           <h1 className="font-heading text-3xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-white drop-shadow-lg">
-            Corporate Travel <br className="hidden sm:inline" />
-            <span className="text-[#D5AF58]">Beyond The Destination</span>
+            Corporate Travel Beyond The Destination
           </h1>
 
           {/* Short paragraph */}
@@ -56,15 +55,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </button>
           </div>
 
-          {/* Key Assurance Bar */}
-          <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8 text-xs sm:text-sm text-gray-200 border-t border-white/20">
-            <div className="flex items-center gap-2 font-medium">
-              <ShieldCheck className="w-4 h-4 text-[#D5AF58] shrink-0" />
-              <span>100% GST ITC Invoice Compliance</span>
+          {/* Key Assurance Bar & Direct Links */}
+          <div className="pt-4 sm:pt-6 flex flex-col space-y-4 border-t border-white/20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8 text-xs sm:text-sm text-gray-200">
+              <div className="flex items-center gap-2 font-medium">
+                <ShieldCheck className="w-4 h-4 text-[#D5AF58] shrink-0" />
+                <span>100% GST ITC Invoice Compliance</span>
+              </div>
+              <div className="flex items-center gap-2 font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#D5AF58] shrink-0"></span>
+                <span>Dedicated Senior Travel Advisory Desk</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#D5AF58] shrink-0"></span>
-              <span>Dedicated Senior Travel Advisory Desk</span>
+
+            {/* Direct HTML links to key business pages */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold text-gray-300 pt-1">
+              <a href="/about" className="hover:text-[#D5AF58] transition-colors">About Flyspurs</a>
+              <a href="/corporate-travel" className="hover:text-[#D5AF58] transition-colors">Corporate Travel</a>
+              <a href="/business-visa" className="hover:text-[#D5AF58] transition-colors">Business Visa</a>
+              <a href="/incentive-tours" className="hover:text-[#D5AF58] transition-colors">Incentive Tours</a>
+              <a href="/exhibitions" className="hover:text-[#D5AF58] transition-colors">Exhibitions</a>
+              <a href="/blog" className="hover:text-[#D5AF58] transition-colors">Blog</a>
+              <a href="/contact" className="hover:text-[#D5AF58] transition-colors">Contact</a>
             </div>
           </div>
 

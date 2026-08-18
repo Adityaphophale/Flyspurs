@@ -66,17 +66,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
 
           {/* Column 2: Quick Navigation */}
           <div className="space-y-4">
-            <h4 className="font-heading text-lg font-bold text-[#0A2D68] tracking-wide">QUICK NAVIGATION</h4>
+            <h4 className="font-heading text-lg font-bold text-[#0A2D68] tracking-wide">QUICK LINKS</h4>
             <ul className="space-y-2.5 text-sm text-[#4B5563]">
-              <li><a href="/#about" className="hover:text-[#0A2D68] transition-colors">About Flyspurs</a></li>
-              <li><a href="/#services" className="hover:text-[#0A2D68] transition-colors">Corporate Services</a></li>
-              <li><a href="/#industries" className="hover:text-[#0A2D68] transition-colors">Industries We Serve</a></li>
-              <li><a href="/#why-us" className="hover:text-[#0A2D68] transition-colors">Why Choose Flyspurs</a></li>
-              <li><a href="/#process" className="hover:text-[#0A2D68] transition-colors">Corporate Travel Process</a></li>
-              <li><a href="/#incentive-tours" className="hover:text-[#0A2D68] transition-colors">Corporate Incentive Tours</a></li>
-              <li><a href="/#exhibitions" className="hover:text-[#0A2D68] transition-colors">Exhibition & Trade Fairs</a></li>
+              <li><Link to="/about" className="hover:text-[#0A2D68] transition-colors">About Flyspurs</Link></li>
+              <li><Link to="/services" className="hover:text-[#0A2D68] transition-colors">Services</Link></li>
+              <li><Link to="/corporate-travel" className="hover:text-[#0A2D68] transition-colors">Corporate Travel</Link></li>
+              <li><Link to="/business-visa" className="hover:text-[#0A2D68] transition-colors">Business Visa</Link></li>
+              <li><Link to="/incentive-tours" className="hover:text-[#0A2D68] transition-colors">Incentive Tours</Link></li>
+              <li><Link to="/exhibitions" className="hover:text-[#0A2D68] transition-colors">Exhibitions</Link></li>
               <li><Link to="/blog" className="hover:text-[#0A2D68] transition-colors">Blog</Link></li>
-              <li><a href="/#contact" className="hover:text-[#0A2D68] transition-colors">Contact</a></li>
+              <li><Link to="/contact" className="hover:text-[#0A2D68] transition-colors">Contact</Link></li>
             </ul>
           </div>
 
@@ -121,6 +120,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#0A2D68] shrink-0" />
                 <a href="mailto:travel@flyspurs.com" className="hover:text-[#0A2D68] text-[#111827] font-semibold underline">travel@flyspurs.com</a>
+              </div>
+
+              <div className="pt-1 text-xs text-[#4B5563]">
+                <p className="font-semibold text-[#111827]">GSTIN: 24BBNPS9571D1Z7</p>
               </div>
 
             </div>

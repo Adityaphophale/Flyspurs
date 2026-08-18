@@ -26,8 +26,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onOpenWhatsApp }) => {
   return (
     <>
       <SEOHead
-        title="Corporate Travel Insights & Guides | Flyspurs SEO Knowledge Hub"
+        title="Corporate Travel Insights | Flyspurs"
         description="Explore authoritative corporate travel management articles, visa guides, travel policy templates, exhibition planning checklists, and cost optimization strategies."
+        canonicalUrl="https://www.flyspurs.com/blog"
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.flyspurs.com/' },
+          { name: 'Blog', url: 'https://www.flyspurs.com/blog' },
+        ]}
       />
 
       <div className="pt-28 pb-20 bg-[#F7F8FA] min-h-screen text-[#071B3D]">

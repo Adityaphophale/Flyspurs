@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { X, Send, MessageSquare, Building2, User, Mail, Phone, MapPin, Briefcase, CheckCircle } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import React, { useState, useEffect } from 'react';
+import { X, MessageSquare, CheckCircle } from 'lucide-react';
 
 interface WhatsAppModalProps {
   isOpen: boolean;
@@ -11,7 +10,7 @@ interface WhatsAppModalProps {
 export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({
   isOpen,
   onClose,
-  defaultService = 'End-to-End Corporate Travel Management',
+  defaultService = 'Corporate Travel',
 }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -19,224 +18,302 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({
     email: '',
     phone: '',
     destination: '',
-    travelRequirement: defaultService,
-    message: '',
+    travelType: defaultService || 'Corporate Travel',
+    requirements: '',
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    if (defaultService) {
+      setFormData((prev) => ({ ...prev, travelType: defaultService }));
+    }
+  }, [defaultService]);
+
   if (!isOpen) return null;
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full Name is required';
+    }
+
+    if (!formData.companyName.trim()) {
+      newErrors.companyName = 'Company Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Work Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid work email address';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    } else if (!/^\+?[0-9\s\-()]{7,20}$/.test(formData.phone.trim())) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    if (!formData.destination.trim()) {
+      newErrors.destination = 'Destination is required';
+    }
+
+    if (!formData.travelType) {
+      newErrors.travelType = 'Please select a Travel Type';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Trigger confetti celebrating inquiry submission
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 60,
-        origin: { y: 0.6 },
-        colors: ['#0A2D68', '#D5AF58', '#071B3D'],
-      });
-    } catch {
-      // Fallback
+    if (!validate()) {
+      return;
     }
 
-    const messageText = `Hello Flyspurs,
+    const lines = [
+      'New Flyspurs Business Travel Inquiry',
+      '',
+      `Name: ${formData.fullName.trim()}`,
+      `Company: ${formData.companyName.trim()}`,
+      `Email: ${formData.email.trim()}`,
+      `Phone: ${formData.phone.trim()}`,
+      `Destination: ${formData.destination.trim()}`,
+      `Travel Type: ${formData.travelType}`,
+    ];
 
-I am interested in your Corporate Travel Services.
+    if (formData.requirements.trim()) {
+      lines.push(`Requirements: ${formData.requirements.trim()}`);
+    }
 
-Name: ${formData.fullName}
-Company: ${formData.companyName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Destination: ${formData.destination || 'Not Specified'}
-Requirement: ${formData.travelRequirement}
-Message: ${formData.message || 'I would like to discuss a corporate travel management partnership.'}`;
-
+    const messageText = lines.join('\n');
     const encodedMessage = encodeURIComponent(messageText);
     const whatsappUrl = `https://wa.me/919274565625?text=${encodedMessage}`;
 
     setSubmitted(true);
 
-    // Open WhatsApp in new window after slight delay
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
       onClose();
       setSubmitted(false);
-    }, 1200);
+    }, 800);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#071B3D]/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-[#D5AF58]/30 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#071B3D]/80 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="relative w-full max-w-[640px] max-h-[90vh] bg-white rounded-[20px] shadow-2xl overflow-hidden border border-[#E5E7EB] flex flex-col">
         
-        {/* Modal Header */}
-        <div className="bg-[#0A2D68] p-6 text-white relative">
+        {/* Header */}
+        <div className="bg-[#0A2D68] p-5 sm:p-6 text-white relative shrink-0">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Close modal"
+            className="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-300 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
           
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-white/10 border border-[#D5AF58]/50 rounded-xl text-[#D5AF58]">
-              <MessageSquare className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-heading text-xl font-bold text-white">Schedule B2B Consultation</h3>
-              <p className="text-xs text-gray-200">Direct connection with Flyspurs Corporate Advisory Desk</p>
-            </div>
+          <div className="space-y-1 pr-10">
+            <h3 className="font-heading text-xl sm:text-2xl font-bold text-white">Plan Your Business Travel</h3>
+            <p className="text-xs sm:text-sm text-gray-200">Tell us about your travel requirement and we'll help you plan it.</p>
           </div>
         </div>
 
         {/* Modal Body / Form */}
-        <div className="p-6 overflow-y-auto space-y-4">
+        <div className="p-5 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm">
           {submitted ? (
-            <div className="py-12 text-center space-y-4">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                <CheckCircle className="w-10 h-10" />
+            <div className="py-12 text-center space-y-3">
+              <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <CheckCircle className="w-8 h-8" />
               </div>
-              <h4 className="font-heading text-2xl font-bold text-[#071B3D]">Redirecting to WhatsApp...</h4>
-              <p className="text-sm text-gray-600 max-w-sm mx-auto">
-                Your B2B inquiry details have been formatted. Connecting you directly with our senior corporate travel manager.
+              <h4 className="font-heading text-xl font-bold text-[#071B3D]">Opening WhatsApp...</h4>
+              <p className="text-xs text-gray-600 max-w-sm mx-auto">
+                Connecting you directly with Flyspurs travel team.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
               
+              {/* Row 1: Full Name & Company Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Full Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Full Name *</label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rajesh Sharma"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    FULL NAME *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={formData.fullName}
+                    onChange={(e) => {
+                      setFormData({ ...formData, fullName: e.target.value });
+                      if (errors.fullName) setErrors({ ...errors, fullName: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.fullName ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.fullName && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.fullName}</p>
+                  )}
                 </div>
 
-                {/* Company Name */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Company Name *</label>
-                  <div className="relative">
-                    <Building2 className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Mechtech Inframine Ltd."
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    COMPANY NAME *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your company name"
+                    value={formData.companyName}
+                    onChange={(e) => {
+                      setFormData({ ...formData, companyName: e.target.value });
+                      if (errors.companyName) setErrors({ ...errors, companyName: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.companyName ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.companyName && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.companyName}</p>
+                  )}
                 </div>
               </div>
 
+              {/* Row 2: Work Email & Phone Number */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Work Email */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Work Email *</label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. r.sharma@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    WORK EMAIL *
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Enter your business email address"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                      if (errors.email) setErrors({ ...errors, email: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.email ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.email && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.email}</p>
+                  )}
                 </div>
 
-                {/* Phone / WhatsApp */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Phone Number *</label>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="tel"
-                      required
-                      placeholder="e.g. +91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    PHONE NUMBER *
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="Enter your contact number"
+                    value={formData.phone}
+                    onChange={(e) => {
+                      setFormData({ ...formData, phone: e.target.value });
+                      if (errors.phone) setErrors({ ...errors, phone: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.phone ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.phone && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.phone}</p>
+                  )}
                 </div>
               </div>
 
+              {/* Row 3: Destination & Travel Type */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Destination */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Primary Destination</label>
-                  <div className="relative">
-                    <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      placeholder="e.g. Germany, Dubai, USA, Canton Fair"
-                      value={formData.destination}
-                      onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    DESTINATION *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your destination"
+                    value={formData.destination}
+                    onChange={(e) => {
+                      setFormData({ ...formData, destination: e.target.value });
+                      if (errors.destination) setErrors({ ...errors, destination: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.destination ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.destination && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.destination}</p>
+                  )}
                 </div>
 
-                {/* Travel Requirement */}
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1">Service Requirement *</label>
-                  <div className="relative">
-                    <Briefcase className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
-                    <select
-                      value={formData.travelRequirement}
-                      onChange={(e) => setFormData({ ...formData, travelRequirement: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68] bg-white"
-                    >
-                      <option value="End-to-End Corporate Travel Management">End-to-End Corporate Travel Desk</option>
-                      <option value="Corporate Flight Coordination">Corporate Flight Coordination</option>
-                      <option value="Corporate Hotel Reservations">Corporate Hotel Reservations</option>
-                      <option value="Business Visa Assistance">Business Visa Assistance</option>
-                      <option value="Corporate Incentive Tours">Corporate Incentive Tours (MICE)</option>
-                      <option value="Trade Fair & Exhibition Travel">Trade Fair & Exhibition Logistics</option>
-                      <option value="International Delegations">International C-Suite Delegation</option>
-                      <option value="Airport Transfers & Ground Mobility">Airport Transfers & Chauffeur</option>
-                    </select>
-                  </div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                    TRAVEL TYPE *
+                  </label>
+                  <select
+                    value={formData.travelType}
+                    onChange={(e) => {
+                      setFormData({ ...formData, travelType: e.target.value });
+                      if (errors.travelType) setErrors({ ...errors, travelType: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-3.5 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors cursor-pointer ${
+                      errors.travelType ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  >
+                    <option value="" disabled>Select travel requirement</option>
+                    <option value="Corporate Travel">Corporate Travel</option>
+                    <option value="Business Visa Assistance">Business Visa Assistance</option>
+                    <option value="International Delegation">International Delegation</option>
+                    <option value="Exhibition Travel">Exhibition Travel</option>
+                    <option value="Incentive Tour">Incentive Tour</option>
+                    <option value="Flight & Hotel Coordination">Flight & Hotel Coordination</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.travelType && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.travelType}</p>
+                  )}
                 </div>
               </div>
 
-              {/* Message */}
+              {/* Row 4: Travel Requirements */}
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">Travel Requirement Details</label>
+                <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1">
+                  TRAVEL REQUIREMENTS
+                </label>
                 <textarea
                   rows={3}
-                  placeholder="Tell us about expected travel frequency, team size, upcoming exhibition, or specific corporate travel requirements..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full p-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
+                  placeholder="Please share your destination, travel dates, number of travellers and any specific requirements."
+                  value={formData.requirements}
+                  onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
+                  className="w-full p-3.5 text-xs sm:text-sm border border-[#E5E7EB] rounded-xl bg-white text-[#111827] focus:outline-none focus:border-[#0A2D68] transition-colors resize-y"
                 ></textarea>
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 font-bold text-base text-[#071B3D] bg-gradient-to-r from-[#D5AF58] via-[#F4E8C1] to-[#D5AF58] hover:from-[#F4E8C1] hover:to-[#D5AF58] rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5"
-              >
-                <Send className="w-5 h-5 fill-[#071B3D]" />
-                <span>Submit & Open WhatsApp Chat</span>
-              </button>
+              <div className="pt-2 space-y-2">
+                <button
+                  type="submit"
+                  className="w-full min-h-[52px] flex items-center justify-center gap-2.5 px-6 font-bold text-xs sm:text-sm text-white bg-[#0A2D68] hover:bg-[#071B3D] rounded-xl shadow-xs transition-all"
+                >
+                  <MessageSquare className="w-4 h-4 text-[#D5AF58]" />
+                  <span>Send Inquiry on WhatsApp →</span>
+                </button>
 
-              <p className="text-center text-xs text-gray-500">
-                🔒 Privacy Assured: We respect your corporate data. No spam guaranteed.
-              </p>
+                <div className="text-center">
+                  <a
+                    href="/#privacy"
+                    className="text-[11px] text-gray-500 hover:text-[#0A2D68] transition-colors"
+                  >
+                    Privacy Policy
+                  </a>
+                </div>
+              </div>
+
             </form>
           )}
         </div>

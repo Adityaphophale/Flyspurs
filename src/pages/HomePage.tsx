@@ -23,8 +23,9 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <>
       <SEOHead
-        title="Flyspurs | Corporate Travel Management - Beyond The Destination"
-        description="Flyspurs is India's premier B2B Corporate Travel Management partner. Simplifying business travel, visas, flight & hotel coordination, trade fair logistics, and corporate incentive tours."
+        title="Flyspurs | Corporate Travel Management"
+        description="Flyspurs is India's premier B2B Corporate Travel Management company. Streamlining executive flights, hotel reservations, business visa assistance, trade fair logistics, and corporate incentive tours."
+        canonicalUrl="https://www.flyspurs.com/"
       />
 
       <main className="overflow-x-hidden">

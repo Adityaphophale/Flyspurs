@@ -42,6 +42,11 @@ export const BlogPostPage: React.FC<BlogPostPageProps> = ({ onOpenWhatsApp }) =>
         description={article.metaDescription}
         canonicalUrl={`https://www.flyspurs.com/blog/${article.slug}`}
         ogType="article"
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.flyspurs.com/' },
+          { name: 'Blog', url: 'https://www.flyspurs.com/blog' },
+          { name: article.title, url: `https://www.flyspurs.com/blog/${article.slug}` },
+        ]}
         articleData={{
           publishDate: article.publishDate,
           updatedDate: article.updatedDate,

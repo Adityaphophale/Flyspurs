@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Mail, Phone, Clock, ShieldCheck, MessageSquare, Building2, CheckCircle, ArrowRight, Globe } from 'lucide-react';
+import { MapPin, Mail, Phone, MessageSquare, Building2, Globe, CheckCircle, ArrowRight } from 'lucide-react';
 import { Logo } from '../components/Logo';
-import confetti from 'canvas-confetti';
 
 interface ContactSectionProps {
   onOpenWhatsApp: (service?: string) => void;
@@ -14,38 +13,71 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenWhatsApp }
     email: '',
     phone: '',
     destination: '',
-    travelRequirement: 'End-to-End Corporate Travel Management',
-    message: '',
+    travelType: '',
+    requirements: '',
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full Name is required';
+    }
+
+    if (!formData.companyName.trim()) {
+      newErrors.companyName = 'Company Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Work Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid work email address';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone Number is required';
+    } else if (!/^\+?[0-9\s\-()]{7,20}$/.test(formData.phone.trim())) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    if (!formData.destination.trim()) {
+      newErrors.destination = 'Destination is required';
+    }
+
+    if (!formData.travelType) {
+      newErrors.travelType = 'Please select a Travel Type';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#0A2D68', '#D5AF58', '#071B3D'],
-      });
-    } catch {
-      //
+    if (!validate()) {
+      return;
     }
 
-    const messageText = `Hello Flyspurs,
+    const lines = [
+      'New Flyspurs Corporate Travel Inquiry',
+      '',
+      `Name: ${formData.fullName.trim()}`,
+      `Company: ${formData.companyName.trim()}`,
+      `Email: ${formData.email.trim()}`,
+      `Phone: ${formData.phone.trim()}`,
+      `Destination: ${formData.destination.trim()}`,
+      `Travel Type: ${formData.travelType}`,
+    ];
 
-I am interested in your Corporate Travel Services.
+    if (formData.requirements.trim()) {
+      lines.push(`Requirements: ${formData.requirements.trim()}`);
+    }
 
-Name: ${formData.fullName}
-Company: ${formData.companyName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Destination: ${formData.destination || 'Not Specified'}
-Requirement: ${formData.travelRequirement}
-Message: ${formData.message || 'I would like to schedule a B2B corporate travel consultation.'}`;
-
+    const messageText = lines.join('\n');
     const encodedMessage = encodeURIComponent(messageText);
     const whatsappUrl = `https://wa.me/919274565625?text=${encodedMessage}`;
 
@@ -54,44 +86,18 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
       setSubmitted(false);
-    }, 1200);
+    }, 800);
   };
 
   return (
-    <section id="contact" className="py-20 bg-white text-[#111827] relative border-b border-[#E5E7EB]">
+    <section id="contact" className="py-16 sm:py-20 bg-white text-[#111827] relative border-b border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="inline-block px-3.5 py-1 bg-[#0A2D68]/10 text-[#0A2D68] rounded-full text-xs font-bold uppercase tracking-wider border border-[#0A2D68]/20">
-            Initiate Partnership
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#071B3D]">
-            Connect With Flyspurs Travel Desk
-          </h2>
-          <p className="text-[#4B5563] text-sm sm:text-base leading-relaxed">
-            Schedule a B2B travel audit, request a MICE proposal, or speak directly with our senior corporate advisory leads.
-          </p>
-        </div>
-
-        {/* Large Corporate Office Image Banner */}
-        <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#E5E7EB] h-64 sm:h-80">
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
-            alt="Flyspurs Corporate Headquarters"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071B3D]/90 via-[#071B3D]/40 to-transparent p-6 sm:p-10 flex flex-col justify-end text-white">
-            <span className="text-[#D5AF58] text-xs font-bold uppercase tracking-wider">Corporate Headquarters</span>
-            <h3 className="font-heading text-2xl sm:text-3xl font-bold">Vadodara, Gujarat • India</h3>
-          </div>
-        </div>
-
-        {/* Contact Layout: LEFT (Contact Info & Actions), RIGHT (Exact Flyspurs Google Map Pin) */}
+        {/* Contact Layout: LEFT (Contact Info), RIGHT (Google Map) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
-          {/* LEFT: Flyspurs Office Information & Contact Actions */}
-          <div className="lg:col-span-5 bg-[#F8FAFC] p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] shadow-sm flex flex-col justify-between space-y-6">
+          {/* LEFT: Flyspurs Office Information */}
+          <div className="lg:col-span-5 bg-[#F8FAFC] p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] shadow-xs flex flex-col justify-between space-y-6">
             
             <div className="space-y-6">
               {/* Flyspurs Branding */}
@@ -100,7 +106,7 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
                 <p className="text-xs font-bold text-[#0A2D68] uppercase tracking-wider">Corporate Travel Management</p>
               </div>
 
-              {/* Exact Address */}
+              {/* Address & Contact Info */}
               <div className="space-y-4 text-xs sm:text-sm text-[#111827]">
                 <div className="flex items-start gap-3">
                   <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 mt-0.5 shadow-2xs">
@@ -148,10 +154,21 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
                     <a href="mailto:travel@flyspurs.com" className="text-[#0A2D68] font-semibold hover:underline">travel@flyspurs.com</a>
                   </div>
                 </div>
+
+                {/* GSTIN */}
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-[#0A2D68] text-[#D5AF58] rounded-xl shrink-0 shadow-2xs">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#071B3D]">GSTIN:</p>
+                    <p className="text-[#111827] font-semibold">24BBNPS9571D1Z7</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Social Channels & WhatsApp */}
-              <div className="pt-4 border-t border-[#E5E7EB] flex flex-wrap items-center justify-between gap-3">
+              {/* Social Channels */}
+              <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between">
                 <button
                   onClick={() => onOpenWhatsApp('Contact Desk Direct Inquiry')}
                   className="inline-flex items-center gap-2 text-xs font-bold text-[#0A2D68] hover:underline"
@@ -190,13 +207,13 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
 
             </div>
 
-            {/* Primary Action Button: Get Directions */}
+            {/* Directions Link */}
             <div className="pt-2">
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=22.2947237,73.1248216"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-2xl shadow-md hover:shadow-lg transition-all border border-[#0A2D68]"
+                className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#0A2D68] hover:bg-[#071B3D] text-white font-bold text-sm rounded-2xl shadow-xs transition-all"
               >
                 <span>Get Directions</span>
                 <ArrowRight className="w-4 h-4 text-[#D5AF58]" />
@@ -205,8 +222,8 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
 
           </div>
 
-          {/* RIGHT: Interactive Google Maps Embed Centered EXACTLY on Flyspurs (22.2947237, 73.1248216) */}
-          <div className="lg:col-span-7 rounded-[20px] overflow-hidden border border-[#E5E7EB] shadow-md relative min-h-[350px] sm:min-h-[400px] lg:min-h-[450px]">
+          {/* RIGHT: Google Maps Embed */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-xs relative min-h-[350px] sm:min-h-[400px] lg:min-h-[450px]">
             <iframe
               title="Flyspurs Office Location Map"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.68334468699!2d73.1248216!3d22.2947237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc94cd3a37367%3A0xa1ea009405d4fb17!2sSiddhivinayak%20Arcus!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
@@ -222,133 +239,205 @@ Message: ${formData.message || 'I would like to schedule a B2B corporate travel 
 
         </div>
 
-        {/* Direct B2B WhatsApp Inquiry Form Container Below */}
-        <div className="mt-12 bg-[#F8FAFC] p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] shadow-lg max-w-4xl mx-auto space-y-6">
-          <div className="space-y-1 text-center">
-            <h3 className="font-heading text-xl font-bold text-[#071B3D]">Start Your Corporate Travel Inquiry</h3>
-            <p className="text-xs text-[#4B5563]">Routes formatted query directly to our Senior Travel Manager on WhatsApp.</p>
+        {/* Corporate Travel Inquiry Form Container */}
+        <div className="mt-12 bg-[#F8FAFC] p-6 sm:p-10 rounded-3xl border border-[#E5E7EB] shadow-sm max-w-4xl mx-auto space-y-8">
+          
+          {/* Form Header */}
+          <div className="space-y-1.5 text-center max-w-2xl mx-auto">
+            <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#071B3D]">
+              Let’s Plan Your Next Business Journey
+            </h3>
+            <p className="text-xs sm:text-sm text-[#4B5563]">
+              Tell us what you need and our travel team will get in touch.
+            </p>
           </div>
 
-            {submitted ? (
-              <div className="py-12 text-center space-y-3">
-                <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle className="w-8 h-8" />
-                </div>
-                <h4 className="font-heading text-xl font-bold text-[#071B3D]">Connecting to WhatsApp...</h4>
-                <p className="text-xs text-[#4B5563] max-w-sm mx-auto">
-                  Directing you to Flyspurs Senior Corporate Advisory Desk.
-                </p>
+          {submitted ? (
+            <div className="py-12 text-center space-y-3">
+              <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                <CheckCircle className="w-8 h-8" />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rajesh Sharma"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Company Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Mechtech Inframine Ltd."
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Work Email *</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. r.sharma@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Phone Number *</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="e.g. +91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Primary Destination</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Germany, Dubai, Canton Fair"
-                      value={formData.destination}
-                      onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#111827] mb-1">Service Requirement *</label>
-                    <select
-                      value={formData.travelRequirement}
-                      onChange={(e) => setFormData({ ...formData, travelRequirement: e.target.value })}
-                      className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                    >
-                      <option value="End-to-End Corporate Travel Management">End-to-End Corporate Travel Desk</option>
-                      <option value="Corporate Flight Coordination">Corporate Flight Coordination</option>
-                      <option value="Corporate Hotel Reservations">Corporate Hotel Reservations</option>
-                      <option value="Business Visa Assistance">Business Visa Assistance</option>
-                      <option value="Corporate Incentive Tours">Corporate Incentive Tours (MICE)</option>
-                      <option value="Trade Fair & Exhibition Travel">Trade Fair & Exhibition Logistics</option>
-                    </select>
-                  </div>
+              <h4 className="font-heading text-xl font-bold text-[#071B3D]">Opening WhatsApp...</h4>
+              <p className="text-xs text-[#4B5563] max-w-sm mx-auto">
+                Your structured inquiry details are loading into WhatsApp.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} noValidate className="space-y-5 text-xs sm:text-sm">
+              
+              {/* Row 1: Full Name & Company Name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    FULL NAME *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={formData.fullName}
+                    onChange={(e) => {
+                      setFormData({ ...formData, fullName: e.target.value });
+                      if (errors.fullName) setErrors({ ...errors, fullName: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.fullName ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.fullName && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.fullName}</p>
+                  )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#111827] mb-1">Travel Requirement Details</label>
-                  <textarea
-                    rows={3}
-                    placeholder="Provide details regarding travel frequency, delegation size, upcoming exhibition dates..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-[#E5E7EB] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#0A2D68]"
-                  ></textarea>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    COMPANY NAME *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your company name"
+                    value={formData.companyName}
+                    onChange={(e) => {
+                      setFormData({ ...formData, companyName: e.target.value });
+                      if (errors.companyName) setErrors({ ...errors, companyName: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.companyName ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.companyName && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.companyName}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Row 2: Work Email & Phone Number */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    WORK EMAIL *
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Enter your business email address"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                      if (errors.email) setErrors({ ...errors, email: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.email ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.email && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.email}</p>
+                  )}
                 </div>
 
+                <div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    PHONE NUMBER *
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="Enter your contact number"
+                    value={formData.phone}
+                    onChange={(e) => {
+                      setFormData({ ...formData, phone: e.target.value });
+                      if (errors.phone) setErrors({ ...errors, phone: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.phone ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.phone && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.phone}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Row 3: Destination & Travel Type */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    DESTINATION *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your destination"
+                    value={formData.destination}
+                    onChange={(e) => {
+                      setFormData({ ...formData, destination: e.target.value });
+                      if (errors.destination) setErrors({ ...errors, destination: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors ${
+                      errors.destination ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  />
+                  {errors.destination && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.destination}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                    TRAVEL TYPE *
+                  </label>
+                  <select
+                    value={formData.travelType}
+                    onChange={(e) => {
+                      setFormData({ ...formData, travelType: e.target.value });
+                      if (errors.travelType) setErrors({ ...errors, travelType: '' });
+                    }}
+                    className={`w-full min-h-[48px] px-4 text-xs sm:text-sm border rounded-xl bg-white text-[#111827] focus:outline-none transition-colors cursor-pointer ${
+                      errors.travelType ? 'border-rose-500 focus:ring-1 focus:ring-rose-500' : 'border-[#E5E7EB] focus:border-[#0A2D68]'
+                    }`}
+                  >
+                    <option value="" disabled>Select travel requirement</option>
+                    <option value="Corporate Travel">Corporate Travel</option>
+                    <option value="Business Visa Assistance">Business Visa Assistance</option>
+                    <option value="International Delegation">International Delegation</option>
+                    <option value="Exhibition Travel">Exhibition Travel</option>
+                    <option value="Incentive Tour">Incentive Tour</option>
+                    <option value="Flight & Hotel Coordination">Flight & Hotel Coordination</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.travelType && (
+                    <p className="text-[11px] text-rose-500 mt-1 font-medium">{errors.travelType}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Row 4: Travel Requirements */}
+              <div>
+                <label className="block text-xs font-bold text-[#071B3D] uppercase tracking-wider mb-1.5">
+                  TRAVEL REQUIREMENTS
+                </label>
+                <textarea
+                  rows={4}
+                  placeholder="Please share your travel requirements, destination, dates, number of travellers and any specific requirements."
+                  value={formData.requirements}
+                  onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
+                  className="w-full p-4 text-xs sm:text-sm border border-[#E5E7EB] rounded-xl bg-white text-[#111827] focus:outline-none focus:border-[#0A2D68] transition-colors resize-y"
+                ></textarea>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-3 px-6 font-bold text-xs text-[#071B3D] bg-[#D5AF58] hover:bg-[#c49f48] rounded-xl shadow-md transition-all"
+                  className="w-full min-h-[52px] flex items-center justify-center gap-2.5 px-6 font-bold text-xs sm:text-sm text-white bg-[#0A2D68] hover:bg-[#071B3D] rounded-xl shadow-sm transition-all"
                 >
-                  <MessageSquare className="w-4 h-4 fill-[#071B3D]" />
-                  <span>Submit & Open WhatsApp Inquiry</span>
+                  <MessageSquare className="w-4 h-4 text-[#D5AF58]" />
+                  <span>Send Inquiry on WhatsApp  →</span>
                 </button>
+              </div>
 
-              </form>
-            )}
+            </form>
+          )}
 
-          </div>
+        </div>
 
       </div>
     </section>
   );
 };
-
